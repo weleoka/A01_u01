@@ -11,18 +11,17 @@ public class Main {
         skapaKopsumma();
         skapaBetalsumma();
 
-        if (kop.getStatus()) {
-            System.out.println("Köp betalat.");
-            if (kop.getVaxelSumma() > 0) {
-                System.out.println("Växel finns at återbetala.");
-                visaVaxelDetaljer();
-
-            }
-        }
-        else {
+        while (!kop.getStatus()) {
             System.out.println("Köp inte betalat. Försök igen.");
             skapaBetalsumma();
         }
+
+        System.out.println("Köp betalat.");
+        if (kop.getVaxelSumma() > 0) {
+            System.out.println("Växel finns at återbetala.");
+            visaVaxelDetaljer();
+        }
+        else kop.slutfor();
     }
 
     private static void skapaKopsumma() {
@@ -36,7 +35,7 @@ public class Main {
     }
     private static void visaVaxelDetaljer() {
         Kassa kassa = new Kassa(kop.getVaxelSumma());
-
+        kassa.skriv();
     }
 
 }

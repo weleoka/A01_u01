@@ -15,5 +15,13 @@ public class Kassa {
         this.vaxelsumma = vaxelsumma;
     }
 
-    public void
+    public void skriv() {
+        System.out.println(this.valorer.length);
+        for (int counter = 0; counter <= this.valorer.length - 1; counter++)
+            if (this.vaxelsumma - this.valorer[counter] >= 0) {
+                this.vaxelsumma = this.vaxelsumma - this.valorer[counter];
+                System.out.printf("%nKöparen får tillbaka: %s", this.valorer[counter]);
+                counter--;
+            }
+    }
 }
