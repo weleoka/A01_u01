@@ -12,10 +12,9 @@ package u01;
  * @since   na
  */
 class Kop {
-    private int kopsumma;
-    private int betalsumma;
-    private int vaxelsumma;
-    private boolean betald = false;
+    private int kopsumma;   // Summan av det som ska köpas
+    private int betalsumma; // Summan av det som betalas
+    private int vaxelsumma; // Summan av växel när uträkningen har gjorts
 
 
     /**
@@ -28,12 +27,12 @@ class Kop {
      *
      */
     public boolean setKopsumma(int kopsumma) {
-        if (kopsumma > 0) {
-            this.kopsumma = kopsumma;
-            return true;
+        if (kopsumma > 0) { // Kassan ger inte ut pengar. Endast plussvärden giltiga.
+            this.kopsumma = kopsumma;   // Spara värdet under instansen
+            return true;    // Rapportera lyckat resultat
         }
         else
-            return false;
+            return false;   // Eller, rapportera misslyckat resultat
     }
 
     /**
@@ -46,17 +45,19 @@ class Kop {
      *
      */
     public boolean setBetalsumma(int betalning) {
-        if (betalning > 0) {
-            if (betalning >= this.kopsumma) {
-                this.betalsumma = betalning;                            // Registrera betalningen.
-                this.vaxelsumma = this.betalsumma - this.kopsumma;      // Räkna ut växelsumman.
-                return true;
+
+        if (betalning > 0) {    // Är det en giltig betalning?
+
+            if (betalning >= this.kopsumma) {   // Räcker betalningen?
+                this.betalsumma = betalning;    // Jo, registrera betalningen
+                this.vaxelsumma = this.betalsumma - this.kopsumma;  // Räkna ut växelsumman
+                return true;    // Rapportera lyckat resultat
             }
             else
-                return false;
+                return false;   // Eller, rapportera misslyckat resultat
         }
         else
-            return false;
+            return false;   // Ogiltig betalning.
     }
 
     /**
@@ -66,7 +67,8 @@ class Kop {
      *
      */
     public int getVaxelsumma() {
-        return this.vaxelsumma;
+
+        return this.vaxelsumma; // Ge rapport om sparat värde.
     }
 
 }

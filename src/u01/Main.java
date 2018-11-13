@@ -23,8 +23,8 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static Kop kop = new Kop();
-    private static Scanner input = new Scanner(System.in);
+    private static Kop kop = new Kop(); // Programmet handlar om ett köp
+    private static Scanner input = new Scanner(System.in);  // Programmet behöver indata
 
 
     /**
@@ -33,26 +33,26 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        Kassa kassa = new Kassa();      // En kassa behövs för att ge växel
+        Kassa kassa = new Kassa();  // En kassa behövs för att ge växel
 
-        while (!skapaKopsumma()) {      // Statisk metod kallas upprepat tills den returnerar sant
+        while (!skapaKopsumma()) {  // Statisk metod kallas upprepat tills den returnerar sant
             System.out.printf("%nKöpsumma inte giltig. Försök igen."); // Om föregående falsk så skriv till stdout
         }
-        System.out.printf("%nKöp registrerat.");    // Köpsumman var okej. Vi kan forsätta.
+        System.out.printf("%nKöp registrerat.");    // Köpsumman var okej. Vi kan forsätta
 
         while (!skapaBetalsumma()) {    // See beskrivning för förgående.
-            System.out.printf("%nBetalsumma inte giltig. Försök igen.");
+            System.out.printf("%nBetalsumma inte giltig. Försök igen."); // -||-
         }
-        System.out.printf("%nKöp betalat.");
+        System.out.printf("%nKöp betalat.");    // Betalning har gjorts, lika med eller utöver Köpsumma
 
-        int vaxel = kop.getVaxelsumma();
+        int vaxel = kop.getVaxelsumma();    // Temporär variabel och deklareras för användning i metoden endast
 
-        if (vaxel > 0) {
+        if (vaxel > 0) {     // Om det finns växel som måste återbetalas
             System.out.printf("%n%d växel finns att återbetala.", vaxel);
-            kassa.geVaxel(vaxel);
+            kassa.geVaxel(vaxel);   // Kalla kassan för att räkna ut sedlar och mynt
         }
 
-        System.out.printf("%n%nTack för köpet!");
+        System.out.printf("%n%nTack för köpet!");   // Allt lyckat
     }
 
 
@@ -65,7 +65,8 @@ public class Main {
      */
     private static boolean skapaKopsumma() {
         System.out.printf("%nAnge ett värde för köpsumma: ");
-        return kop.setKopsumma(input.nextInt());
+
+        return kop.setKopsumma(input.nextInt());    // Sätt stdin värde till köpinstansen, returnera rapport
     }
 
 
@@ -78,6 +79,7 @@ public class Main {
      */
     private static boolean skapaBetalsumma() {
         System.out.printf("%nAnge ett värde för betalsumma: ");
-        return kop.setBetalsumma(input.nextInt());
+
+        return kop.setBetalsumma(input.nextInt());  // Sätt stdin värde till köpinstansen, returnera rapport
     }
 }

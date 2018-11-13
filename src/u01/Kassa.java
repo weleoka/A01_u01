@@ -27,13 +27,17 @@ public class Kassa {
 
     /**
      * Class constructor.
-     * Låter ett specifikt set med valorer ställas in för kassan.
+     * Låter ett specifikt set med valorer sättas för kassan.
+     *
+     * TODO Kontrollera att arrey har giltig data
+     * TODO Se till att array är sorterad
      *
      * @param valorer            en int[] med valorer som kassan ska hantera.
      *
      */
     public Kassa(int[] valorer) {
-        this.valorer = valorer;
+
+        this.valorer = valorer; // Spara inkommande array som giltiga valörer.
     }
 
 
