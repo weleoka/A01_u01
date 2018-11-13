@@ -27,16 +27,20 @@ public class Main {
     private static Scanner input = new Scanner(System.in);
 
 
+    /**
+     * main-metoden för klassen Main.
+     *
+     */
     public static void main(String[] args) {
 
-        Kassa kassa = new Kassa();
+        Kassa kassa = new Kassa();      // En kassa behövs för att ge växel
 
-        while (!skapaKopsumma()) {
-            System.out.printf("%nKöpsumma inte giltig. Försök igen.");
+        while (!skapaKopsumma()) {      // Statisk metod kallas upprepat tills den returnerar sant
+            System.out.printf("%nKöpsumma inte giltig. Försök igen."); // Om föregående falsk så skriv till stdout
         }
-        System.out.printf("%nKöp registrerat.");
+        System.out.printf("%nKöp registrerat.");    // Köpsumman var okej. Vi kan forsätta.
 
-        while (!skapaBetalsumma()) {
+        while (!skapaBetalsumma()) {    // See beskrivning för förgående.
             System.out.printf("%nBetalsumma inte giltig. Försök igen.");
         }
         System.out.printf("%nKöp betalat.");
@@ -52,12 +56,26 @@ public class Main {
     }
 
 
+    /**
+     * Skriv ut till konsol ett meddelande och ta sedan stdin för resultat.
+     * Kallar sedan setKopsumma på instans(Kop) och returnera resultat.
+     *
+     * @return boolean      lyckat eller inte för set-operationen
+     *
+     */
     private static boolean skapaKopsumma() {
         System.out.printf("%nAnge ett värde för köpsumma: ");
         return kop.setKopsumma(input.nextInt());
     }
 
 
+    /**
+     * Skriv ut till konsol ett meddelande och ta sedan stdin för resultat.
+     * Kallar sedan setKopsumma på instans(Kop) och returnera resultat.
+     *
+     * @return boolean      lyckat eller inte för set-operationen
+     *
+     */
     private static boolean skapaBetalsumma() {
         System.out.printf("%nAnge ett värde för betalsumma: ");
         return kop.setBetalsumma(input.nextInt());

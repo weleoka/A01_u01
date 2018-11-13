@@ -40,6 +40,8 @@ public class Kassa {
     /**
      * Räknar ut växel valörer och skriver ut dem.
      *
+     * TODO Se till att ingen skrivning till stdout görs här. Endast logik och sparande i den här klassen.
+     *
      * @param vaxelsumma         en int med vaxelsumman att betala tillbaka
      *
      */
@@ -47,10 +49,10 @@ public class Kassa {
 
         for (int i = 0; i <= this.valorer.length - 1; i++) {
 
-            if (vaxelsumma - this.valorer[i] >= 0) {    // Testa om valoren är
+            if (vaxelsumma - this.valorer[i] >= 0) {    // Testa om valoren är passar.
                 vaxelsumma = vaxelsumma - this.valorer[i];
                 System.out.printf("%nKöparen får tillbaka: %s", this.valorer[i]);
-                i--;        // hoppa tillbaks ett steg för att testa samma valör igen.
+                i--;        // får samma valör plats igen?
             }
         }
     }

@@ -4,7 +4,6 @@ package u01;
  * Klassen Kop motsvarar ett köp och används för att registrera
  * köpsumma och betalningsumma för att göra kontroll om ett köp kan
  * genomföras. Betalningen kan vara för liten, eller kanske växel måste ges.
- * Ett köp kan vara i status betald eller obetald.
  *
  * @author  Kai Weeks
  * För D0019N - Assignment 1 - Uppgift 1.
