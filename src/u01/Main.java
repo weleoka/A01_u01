@@ -36,7 +36,7 @@ public class Main {
         while (!skapaBetalsumma()) {
             System.out.printf("%nBetalsumma inte giltig. Försök igen.");
         }
-        System.out.println("Köp betalat.");
+        System.out.printf("%nKöp betalat.");
 
         if (kop.getVaxelsumma() > 0) {
             System.out.printf("%nVäxel (%d) finns at återbetala.", kop.getVaxelsumma());
