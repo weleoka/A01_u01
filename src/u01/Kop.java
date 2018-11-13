@@ -12,84 +12,62 @@ package u01;
  * @version na
  * @since   na
  */
-public class Kop {
-    private int summa;      // värdet för köpsumman.
-    private int betalSumma;
-    private int vaxelSumma;
+class Kop {
+    private int kopsumma;
+    private int betalsumma;
+    private int vaxelsumma;
     private boolean betald = false;
 
 
     /**
      * Registrerar en ny summa för ett köp.
+     * Testar om kopsumman är giltig, Mer än noll
      *
      * @param kopsumma            en int med betalsumman att registrera
      *
      * @return boolean            sant om köpsumman är giltig; mer än 0
      *
      */
-    public boolean setKopSumma(int kopsumma) {
-        if (kopsumma > 0)
-            this.summa = kopsumma;
+    public boolean setKopsumma(int kopsumma) {
+        if (kopsumma > 0) {
+            this.kopsumma = kopsumma;
             return true;
+        }
+        else
+            return false;
     }
 
-
     /**
-     * Registrera en ny betalning för ett köp. Testa betalningen
-     * för att kontrollera att den räcker, och om det blir växel över.
-     *
-     * Variabeln betald blir sann om betalningen är för stor eller
-     * precis rätt, men kvarstår falskt om betalningen är för liten.
-     *
+     * Registrera en ny betalning för ett köp.
+     * Testa betalningen för att kontrollera att den räcker.
      *
      * @param betalning             en int med betalsumman att registrera
      *
-     */
-    public void setBetalsumma(int betalning) {
-        this.betalSumma = betalning;                // Registrera betalningen.
-        this.vaxelSumma = betalning - this.summa;   // Räkna ut växelsumman.
-
-        if (this.vaxelSumma < 0) {                  // Betalningen är för liten.
-            this.betald = false;
-        }
-        else       // Betalningen räcker. Den kan vara för stor eller exakt rätt.
-            this.betald = true;
-    }
-
-
-    /**
-     * Kontrollera status på ett köp och återge textbeskrivning av den.
-     *
-     * @return this.betald          en boolean för betalningsstatus
+     * @return boolean              sant om betalsumma är giltig.
      *
      */
-    public boolean getStatus() {
-        return this.betald;
-    }
-
-
-    /**
-     * Get metod för att kontrollera växelsumma.
-     *
-     * @return this.betaldSumma     int för växelsumma
-     *
-     */
-    public int getVaxelSumma() {
-        return this.vaxelSumma;
-    }
-
-
-    /**
-     * Ett köp är slutfört när betalning har gjorts och eventuell växel returnerats.
-     * Den här metoden skriver ut tack när köpet genomförts.
-     *
-     */
-    public void slutfor() {
-        if (!this.betald) {
-            this.betald = true;
-            System.out.println("Tack för köpet!");
+    public boolean setBetalsumma(int betalning) {
+        if (betalning > 0) {
+            if (betalning >= this.kopsumma) {
+                this.betalsumma = betalning;                            // Registrera betalningen.
+                this.vaxelsumma = this.betalsumma - this.kopsumma;      // Räkna ut växelsumman.
+                return true;
+            }
+            else
+                return false;
         }
         else
-            System.out.println("Köpet är redan slutfört!");
+            return false;
     }
+
+    /**
+     * Metod som returnerar växelsumman.
+     *
+     * @return this.vaxelumma     int för växelsumma
+     *
+     */
+    public int getVaxelsumma() {
+        return this.vaxelsumma;
+    }
+
 }

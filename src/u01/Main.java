@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Applied java for running educational material.
  *
  * main class for creating generative product and
- * provide interface for klasses created for educational purposes.
+ * provide interface for classes created for educational purposes.
  *
  *  @author  Kai Weeks
  *  För D0019N - Assignment 1 - Uppgift 1.
@@ -16,7 +16,8 @@ import java.util.Scanner;
  *
  *  TODO Lista
  *  - Gardera mot felinmatad data med exception handling.
- *  - Loopa skapaKopsumma till en summa > 0 är inmatad.
+ *  - Bättre än att returnera bool från kopkontroll vore att throw exception
+ *      och låta den bubbla istället. Men det fungerar så här med.
  *
  */
 public class Main {
@@ -26,38 +27,39 @@ public class Main {
 
 
     public static void main(String[] args) {
-        skapaKopsumma();
-        skapaBetalsumma();
 
-        while (!kop.getStatus()) {
-            System.out.println("Köp inte betalat. Försök igen.");
-            skapaBetalsumma();
+        while (!skapaKopsumma()) {
+            System.out.printf("%nKöpsumma inte giltig. Försök igen.");
         }
+        System.out.printf("%nKöp registrerat.");
 
+        while (!skapaBetalsumma()) {
+            System.out.printf("%nBetalsumma inte giltig. Försök igen.");
+        }
         System.out.println("Köp betalat.");
-        if (kop.getVaxelSumma() > 0) {
-            System.out.println("Växel finns at återbetala.");
+
+        if (kop.getVaxelsumma() > 0) {
+            System.out.printf("%nVäxel (%d) finns at återbetala.", kop.getVaxelsumma());
             visaVaxelDetaljer();
         }
-        else kop.slutfor();
+
+        System.out.printf("%n%nTack för köpet!");
     }
 
 
-    private static void skapaKopsumma() {
-        System.out.println("Ange ett värde för köpsumma: ");
-        kop.setKopSumma(input.nextInt());
-        System.out.println("Nytt köp registrerat.");
+    private static boolean skapaKopsumma() {
+        System.out.printf("%nAnge ett värde för köpsumma: ");
+        return kop.setKopsumma(input.nextInt());
     }
 
 
-    private static void skapaBetalsumma() {
-        System.out.println("Ange ett värde för betalsumma: ");
-        kop.setBetalsumma(input.nextInt());
+    private static boolean skapaBetalsumma() {
+        System.out.printf("%nAnge ett värde för betalsumma: ");
+        return kop.setBetalsumma(input.nextInt());
     }
-
 
     private static void visaVaxelDetaljer() {
-        Kassa kassa = new Kassa(kop.getVaxelSumma());
+        Kassa kassa = new Kassa(kop.getVaxelsumma());
         kassa.skriv();
     }
 }

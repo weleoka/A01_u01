@@ -5,7 +5,6 @@ package u01;
  * för att återbetala som växel.
  *
  * TODO valorer som ska returneras kan hållas i array och inkrementeras istället för att bara skrivas ut var och en för sig.
- *
  * TODO klassen kassa skulle vara bättre att inte instansiera för varje betalning. ändra från konstruktor till setMetod.
  *
  * @author  Kai Weeks
@@ -29,13 +28,17 @@ public class Kassa {
         this.vaxelsumma = vaxelsumma;
     }
 
+    /**
+     * Räknar ut växel valörer och skriver ut dem.
+     *
+     */
     public void skriv() {
         System.out.println(this.valorer.length);
-        for (int counter = 0; counter <= this.valorer.length - 1; counter++)
-            if (this.vaxelsumma - this.valorer[counter] >= 0) {
-                this.vaxelsumma = this.vaxelsumma - this.valorer[counter];
-                System.out.printf("%nKöparen får tillbaka: %s", this.valorer[counter]);
-                counter--;
+        for (int i = 0; i <= this.valorer.length - 1; i++)
+            if (this.vaxelsumma - this.valorer[i] >= 0) {
+                this.vaxelsumma = this.vaxelsumma - this.valorer[i];
+                System.out.printf("%nKöparen får tillbaka: %s", this.valorer[i]);
+                i--;
             }
     }
 }
