@@ -16,8 +16,9 @@ import java.util.Scanner;
  *
  *  TODO Lista
  *  - Gardera mot felinmatad data med exception handling.
- *  - Bättre än att returnera bool från kopkontroll vore att throw exception
+ *  - Bättre än att returnera bool från köpkontroll vore att throw exception
  *      och låta den bubbla istället. Men det fungerar så här med.
+ *  - Implementera ArrayList för att hålla i köp (att föredra över LinkedList, p.g.a. LIFO operationer)
  *
  */
 public class Main {
@@ -27,6 +28,8 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        Kassa kassa = new Kassa();
 
         while (!skapaKopsumma()) {
             System.out.printf("%nKöpsumma inte giltig. Försök igen.");
@@ -38,9 +41,11 @@ public class Main {
         }
         System.out.printf("%nKöp betalat.");
 
-        if (kop.getVaxelsumma() > 0) {
-            System.out.printf("%nVäxel (%d) finns at återbetala.", kop.getVaxelsumma());
-            visaVaxelDetaljer();
+        int vaxel = kop.getVaxelsumma();
+
+        if (vaxel > 0) {
+            System.out.printf("%n%d växel finns att återbetala.", vaxel);
+            kassa.geVaxel(vaxel);
         }
 
         System.out.printf("%n%nTack för köpet!");
@@ -56,10 +61,5 @@ public class Main {
     private static boolean skapaBetalsumma() {
         System.out.printf("%nAnge ett värde för betalsumma: ");
         return kop.setBetalsumma(input.nextInt());
-    }
-
-    private static void visaVaxelDetaljer() {
-        Kassa kassa = new Kassa(kop.getVaxelsumma());
-        kassa.skriv();
     }
 }

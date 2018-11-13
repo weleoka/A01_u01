@@ -1,44 +1,57 @@
 package u01;
 
 /**
- * Klassen kassa jobbar med att räkna fram olika valörer
- * för att återbetala som växel.
+ * Klassen Kassa räknar fram växel beroende på olika valörer.
  *
  * TODO valorer som ska returneras kan hållas i array och inkrementeras istället för att bara skrivas ut var och en för sig.
- * TODO klassen kassa skulle vara bättre att inte instansiera för varje betalning. ändra från konstruktor till setMetod.
+ * TODO gör klassen till ett singleton.
  *
  * @author  Kai Weeks
  * För D0019N - Assignment 1 - Uppgift 1.
  *
  * @version na
  * @since   na
+ *
  */
 public class Kassa {
 
-    private int vaxelsumma;
     private int[] valorer = {1000, 5000, 200, 100, 50, 20, 2 ,1};
+
 
     /**
      * Class constructor.
      *
-     * @param vaxelsumma            en int med vaxelsumman att betala tillbaka
+     */
+    public Kassa() {}
+
+
+    /**
+     * Class constructor.
+     * Låter ett specifikt set med valorer ställas in för kassan.
+     *
+     * @param valorer            en int[] med valorer som kassan ska hantera.
      *
      */
-    public Kassa(int vaxelsumma) {
-        this.vaxelsumma = vaxelsumma;
+    public Kassa(int[] valorer) {
+        this.valorer = valorer;
     }
+
 
     /**
      * Räknar ut växel valörer och skriver ut dem.
      *
+     * @param vaxelsumma         en int med vaxelsumman att betala tillbaka
+     *
      */
-    public void skriv() {
-        System.out.println(this.valorer.length);
-        for (int i = 0; i <= this.valorer.length - 1; i++)
-            if (this.vaxelsumma - this.valorer[i] >= 0) {
-                this.vaxelsumma = this.vaxelsumma - this.valorer[i];
+    public void geVaxel(int vaxelsumma) {
+
+        for (int i = 0; i <= this.valorer.length - 1; i++) {
+
+            if (vaxelsumma - this.valorer[i] >= 0) {    // Testa om valoren är
+                vaxelsumma = vaxelsumma - this.valorer[i];
                 System.out.printf("%nKöparen får tillbaka: %s", this.valorer[i]);
-                i--;
+                i--;        // hoppa tillbaks ett steg för att testa samma valör igen.
             }
+        }
     }
 }
