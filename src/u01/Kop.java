@@ -3,12 +3,14 @@ package u01;
 /**
  * Klassen Kop motsvarar ett köp och används för att registrera
  * köpsumma och betalningsumma för att göra kontroll om ett köp kan
- * genomföras, om betalningen är för liten, eller kanske om växel krävs.
+ * genomföras. Betalningen kan vara för liten, eller kanske växel måste ges.
  * Ett köp kan vara i status betald eller obetald.
  *
  * @author  Kai Weeks
- * @version 1.0
- * @since   2018-11-20
+ * För D0019N - Assignment 1 - Uppgift 1.
+ *
+ * @version na
+ * @since   na
  */
 public class Kop {
     private int summa;      // värdet för köpsumman.
@@ -22,9 +24,13 @@ public class Kop {
      *
      * @param kopsumma            en int med betalsumman att registrera
      *
+     * @return boolean            sant om köpsumman är giltig; mer än 0
+     *
      */
-    public void setKopSumma(int kopsumma) {
-        this.summa = kopsumma;
+    public boolean setKopSumma(int kopsumma) {
+        if (kopsumma > 0)
+            this.summa = kopsumma;
+            return true;
     }
 
 

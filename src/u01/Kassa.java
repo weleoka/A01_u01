@@ -1,5 +1,19 @@
 package u01;
 
+/**
+ * Klassen kassa jobbar med att räkna fram olika valörer
+ * för att återbetala som växel.
+ *
+ * TODO valorer som ska returneras kan hållas i array och inkrementeras istället för att bara skrivas ut var och en för sig.
+ *
+ * TODO klassen kassa skulle vara bättre att inte instansiera för varje betalning. ändra från konstruktor till setMetod.
+ *
+ * @author  Kai Weeks
+ * För D0019N - Assignment 1 - Uppgift 1.
+ *
+ * @version na
+ * @since   na
+ */
 public class Kassa {
 
     private int vaxelsumma;
