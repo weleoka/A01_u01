@@ -14,15 +14,12 @@ import java.util.Scanner;
  *  @version na
  *  @since   na
  *
- *  TODO Lista
- *  - Gardera mot felinmatad data med exception handling.
- *  - Bättre än att returnera bool från köpkontroll vore att throw exception
- *      och låta den bubbla istället. Men det fungerar så här med.
- *  - Implementera ArrayList för att hålla i köp (att föredra över LinkedList, p.g.a. LIFO operationer)
+ *  todo Gardera mot felinmatad data med exception handling
+ *  todo Bättre än att returnera bool från köpkontroll vore att throw exception
+ *  todo Implementera ArrayList för att hålla i köp (att föredra över LinkedList, p.g.a. LIFO operationer)
  *
  */
 public class Main {
-
     private static Kop kop = new Kop(); // Programmet handlar om ett köp
     private static Scanner input = new Scanner(System.in);  // Programmet behöver indata
 

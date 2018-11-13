@@ -35,6 +35,7 @@ class Kop {
             return false;   // Eller, rapportera misslyckat resultat
     }
 
+
     /**
      * Registrera en ny betalning för ett köp.
      * Testa betalningen för att kontrollera att den räcker.
@@ -59,6 +60,7 @@ class Kop {
         else
             return false;   // Ogiltig betalning.
     }
+
 
     /**
      * Metod som returnerar växelsumman.
