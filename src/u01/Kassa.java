@@ -1,10 +1,15 @@
 package u01;
 
+import java.util.HashMap;
+
 /**
  * Klassen Kassa räknar fram växel beroende på olika valörer.
  *
- * todo Valorer som ska returneras kan hållas i array och inkrementeras istället för att bara skrivas ut var och en för sig.
+ * Valörer har ett defaultvärde eller kan sättas manuellt genom att
+ * anropa konstruktorn med en array.
+ *
  * todo Gör klassen till ett singleton.
+ * todo Implementera ArrayList för att hålla i köp (att föredra över LinkedList, p.g.a. LIFO operationer)
  *
  * @author  Kai Weeks
  * För D0019N - Assignment 1 - Uppgift 1.
@@ -14,11 +19,13 @@ package u01;
  *
  */
 public class Kassa {
-    private int[] valorer = {1000, 5000, 200, 100, 50, 20, 2 ,1};
+    private int[] valorer = {1000, 5000, 200, 100, 50, 20, 2 ,1};   // Defaultvärden för valorer
+    private HashMap<Integer, Integer> hm = new HashMap<>();   // hm för att lagra växeldetaljer
 
 
     /**
      * Class constructor.
+     * Låter kassan instantieras med deafultvärden för valörer.
      *
      */
     public Kassa() {}
@@ -31,32 +38,43 @@ public class Kassa {
      * todo Kontrollera att arrey har giltig data
      * todo Se till att array är sorterad
      *
-     * @param valorer            en int[] med valorer som kassan ska hantera.
+     * @param valorer            en int[] med valorer som kassan ska hantera
      *
      */
     public Kassa(int[] valorer) {
 
-        this.valorer = valorer; // Spara inkommande array som giltiga valörer.
+        this.valorer = valorer; // Spara inkommande array som giltiga valörer
     }
 
 
     /**
-     * Räknar ut växel valörer och skriver ut dem.
+     * Räknar ut växel valörer och sparar dem i en hashmap.
      *
-     * todo Se till att ingen skrivning till stdout görs här. Endast logik och sparande i den här klassen.
+     * @param vaxelsumma        en int med vaxelsumman att betala tillbaka
      *
-     * @param vaxelsumma         en int med vaxelsumman att betala tillbaka
+     * @return hm               en hashmap med valorer och antal som motsvarar växel
      *
      */
-    public void geVaxel(int vaxelsumma) {
+    public HashMap<Integer, Integer> geVaxel(int vaxelsumma) {
+        int i;  // inkremator
+        int key = 0;   // Nyckel, alltså valör
+        int value = 0; // Räknaren
 
-        for (int i = 0; i <= this.valorer.length - 1; i++) {
+        for (i = 0; i <= this.valorer.length - 1; i++) {    // Börja på index noll och fortsätt tills arreylängden är nådd
+            key = this.valorer[i];  // Sätt pågående valör som nyckel
+            value = 0; // Nollställ räknaren
 
-            if (vaxelsumma - this.valorer[i] >= 0) {    // Testa om valoren är passar.
-                vaxelsumma = vaxelsumma - this.valorer[i];
-                System.out.printf("%nKöparen får tillbaka: %s", this.valorer[i]);
-                i--;        // får samma valör plats igen?
+
+            while (vaxelsumma - key >= 0) {    // Testa om valoren kan användas
+                value++;    // Spara en förekomst av valör
+                vaxelsumma -= key;  // Ränka ut resterande växelsumma (-= är en compound assignement operator)
+            }
+
+            if (value > 0) {    // Om valören förekommer som växel spara i hashmap
+                hm.put(key, value);
             }
         }
+
+        return hm;
     }
 }

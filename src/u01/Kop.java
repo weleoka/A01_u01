@@ -10,6 +10,7 @@ package u01;
  *
  * @version na
  * @since   na
+ *
  */
 class Kop {
     private int kopsumma;   // Summan av det som ska köpas
@@ -27,7 +28,7 @@ class Kop {
      *
      */
     public boolean setKopsumma(int kopsumma) {
-        if (kopsumma > 0) { // Kassan ger inte ut pengar. Endast plussvärden giltiga.
+        if (kopsumma > 0) { // Kassan ger inte ut pengar. Endast plussvärden giltiga
             this.kopsumma = kopsumma;   // Spara värdet under instansen
             return true;    // Rapportera lyckat resultat
         }
@@ -42,7 +43,7 @@ class Kop {
      *
      * @param betalning             en int med betalsumman att registrera
      *
-     * @return boolean              sant om betalsumma är giltig.
+     * @return boolean              sant om betalsumma är giltig
      *
      */
     public boolean setBetalsumma(int betalning) {
@@ -58,7 +59,7 @@ class Kop {
                 return false;   // Eller, rapportera misslyckat resultat
         }
         else
-            return false;   // Ogiltig betalning.
+            return false;   // Ogiltig betalning
     }
 
 
@@ -70,7 +71,7 @@ class Kop {
      */
     public int getVaxelsumma() {
 
-        return this.vaxelsumma; // Ge rapport om sparat värde.
+        return this.vaxelsumma; // Ge rapport om sparat värde
     }
 
 }

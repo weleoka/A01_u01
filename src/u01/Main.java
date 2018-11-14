@@ -1,12 +1,21 @@
 package u01;
 
-import java.util.Scanner;
+import java.util.HashMap;   // För att skapa pekare till returnerade hm
+import java.util.Scanner;   // För att ta input från användaren
+import static java.lang.System.*;   // För utskrifter och input för användaren
 
 /**
- * Applied java for running educational material.
+ *  Kontrollklass för exekvering.
  *
- * main class for creating generative product and
- * provide interface for classes created for educational purposes.
+ *  Programmet inefattar 2 till klasser:
+ *      - Kop (Köp) som representerar ett köp, med köpsumma och betalsumma
+ *      - Kassa som representerar återbatalning av växel
+ *
+ *  Alla programmutskrifter och hantering av användarinput görs i Main.
+ *
+ *  Varning för import av java.lang.System.* som kan förorena namespace, men
+ *  i det här fallet gör koden renare.
+ *
  *
  *  @author  Kai Weeks
  *  För D0019N - Assignment 1 - Uppgift 1.
@@ -16,12 +25,13 @@ import java.util.Scanner;
  *
  *  todo Gardera mot felinmatad data med exception handling
  *  todo Bättre än att returnera bool från köpkontroll vore att throw exception
- *  todo Implementera ArrayList för att hålla i köp (att föredra över LinkedList, p.g.a. LIFO operationer)
+ *  todo Spara köp under Kassa och se till att Kassa returnerar växel för senaste köpet i listan.
+ *  todo Consider using the singleton pattern for Kassa
  *
  */
 public class Main {
     private static Kop kop = new Kop(); // Programmet handlar om ett köp
-    private static Scanner input = new Scanner(System.in);  // Programmet behöver indata
+    private static Scanner input = new Scanner(in);  // Programmet behöver indata
 
 
     /**
@@ -29,39 +39,41 @@ public class Main {
      *
      */
     public static void main(String[] args) {
-
+        HashMap<Integer, Integer> hm;   // Hashmap referens på returnerat värde från Kassa
         Kassa kassa = new Kassa();  // En kassa behövs för att ge växel
 
         while (!skapaKopsumma()) {  // Statisk metod kallas upprepat tills den returnerar sant
-            System.out.printf("%nKöpsumma inte giltig. Försök igen."); // Om föregående falsk så skriv till stdout
+            out.printf("%nKöpsumma inte giltig. Försök igen."); // Om föregående falsk så skriv till stdout
         }
-        System.out.printf("%nKöp registrerat.");    // Köpsumman var okej. Vi kan forsätta
+        out.printf("%nKöp registrerat.");    // Köpsumman var okej. Vi kan forsätta
 
-        while (!skapaBetalsumma()) {    // See beskrivning för förgående.
-            System.out.printf("%nBetalsumma inte giltig. Försök igen."); // -||-
+        while (!skapaBetalsumma()) {    // See beskrivning för förgående
+            out.printf("%nBetalsumma inte giltig. Försök igen."); // -||-
         }
-        System.out.printf("%nKöp betalat.");    // Betalning har gjorts, lika med eller utöver Köpsumma
+        out.printf("%nKöp betalat.");    // Betalning har gjorts, lika med eller utöver Köpsumma
 
         int vaxel = kop.getVaxelsumma();    // Temporär variabel och deklareras för användning i metoden endast
 
         if (vaxel > 0) {     // Om det finns växel som måste återbetalas
-            System.out.printf("%n%d växel finns att återbetala.", vaxel);
-            kassa.geVaxel(vaxel);   // Kalla kassan för att räkna ut sedlar och mynt
+            out.printf("%n%d växel finns att återbetala.", vaxel);
+            hm = kassa.geVaxel(vaxel);   // Invokera geVaxel metoden för kassan för att räkna ut sedlar och mynt
+            hm.forEach((Integer k, Integer v) ->    // Gå igenom alla key-value par som finns i hashmap och kör en lambda med dem
+                out.printf("%n%skr = %sst", k, v)
+            );
         }
-
-        System.out.printf("%n%nTack för köpet!");   // Allt lyckat
+        out.printf("%n%nTack för köpet!");   // Allt lyckat
     }
 
 
     /**
      * Skriv ut till konsol ett meddelande och ta sedan stdin för resultat.
-     * Kallar sedan setKopsumma på instans(Kop) och returnera resultat.
+     * Kallar sedan setKopsumma på instans(Kop) och returnerar resultat.
      *
      * @return boolean      lyckat eller inte för set-operationen
      *
      */
     private static boolean skapaKopsumma() {
-        System.out.printf("%nAnge ett värde för köpsumma: ");
+        out.printf("%nAnge ett värde för köpsumma: ");
 
         return kop.setKopsumma(input.nextInt());    // Sätt stdin värde till köpinstansen, returnera rapport
     }
@@ -69,13 +81,13 @@ public class Main {
 
     /**
      * Skriv ut till konsol ett meddelande och ta sedan stdin för resultat.
-     * Kallar sedan setKopsumma på instans(Kop) och returnera resultat.
+     * Kallar sedan setBetalsumma på instans(Kop) och returnerar resultat.
      *
      * @return boolean      lyckat eller inte för set-operationen
      *
      */
     private static boolean skapaBetalsumma() {
-        System.out.printf("%nAnge ett värde för betalsumma: ");
+        out.printf("%nAnge ett värde för betalsumma: ");
 
         return kop.setBetalsumma(input.nextInt());  // Sätt stdin värde till köpinstansen, returnera rapport
     }
